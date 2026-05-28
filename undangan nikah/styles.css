@@ -273,11 +273,115 @@ section {
     }
 }
 
+/* ============================
+   SECTION 4: RSVP / KONFIRMASI
+   ============================ */
+.section-4 {
+    min-height: 100vh;
+    padding: 80px 10%;
+    background: linear-gradient(135deg, #fffaf7 0%, #f4efeb 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.rsvp-container {
+    width: 100%;
+    max-width: 460px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #eadfd8;
+    border-radius: 20px;
+    box-shadow: 0 14px 30px rgba(90, 75, 65, 0.12);
+    padding: 32px 24px;
+    text-align: center;
+}
+.rsvp-container h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8rem;
+    color: #5a4b41;
+    margin-bottom: 10px;
+}
+.rsvp-subtitle {
+    color: #6d6259;
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+}
+#rsvp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+#rsvp-form label {
+    font-size: 0.95rem;
+    color: #5a4b41;
+    font-weight: 600;
+}
+#rsvp-form input,
+#rsvp-form select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d5cbc3;
+    border-radius: 10px;
+    background: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    color: #333;
+}
+#rsvp-form input:focus,
+#rsvp-form select:focus {
+    outline: none;
+    border-color: #b89f91;
+    box-shadow: 0 0 0 3px rgba(184, 159, 145, 0.18);
+}
+#rsvp-form button {
+    margin-top: 6px;
+    padding: 13px 18px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #5a4b41 0%, #7c665a 100%);
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+#rsvp-form button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 18px rgba(90, 75, 65, 0.18);
+}
+#rsvp-message {
+    min-height: 22px;
+    margin-top: 12px;
+    color: #5a4b41;
+    font-size: 0.95rem;
+}
+
 @media (max-width: 768px) {
     .hero-top, .hero-bottom { font-size: 1rem; letter-spacing: 5px; }
     .hero-middle { font-size: 3.5rem; }
-    .section-2, .section-3 { padding: 50px 5%; }
+    .section-2, .section-3, .section-4 { padding: 50px 5%; }
     .s3-left, .s3-right { flex: 100%; text-align: center; }
     .s3-left { margin-bottom: 30px; }
     .text-slots { align-items: center; }
+    .section-3 {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .s3-right {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+    .profile-card {
+        flex: 1 1 100%;
+        max-width: 300px;
+    }
+    .profile-photo {
+        margin-bottom: 10px;
+    }
+    .rsvp-container {
+        padding: 26px 18px;
+    }
 }

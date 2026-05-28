@@ -83,3 +83,44 @@ const countdownTimer = setInterval(function() {
         document.getElementById('seconds').innerText = '00';
     }
 }, 1000);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('rsvp-form');
+    const message = document.getElementById('rsvp-message');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value.trim();
+        const guests = document.getElementById('guests').value;
+
+        if (!name) {
+            message.textContent = 'Please enter your name.';
+            message.style.color = 'red';
+            return;
+        }
+
+        const data = `${name},${guests}\n`;
+
+        try {
+            const response = await fetch('save_rsvp.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `data=${encodeURIComponent(data)}`,
+            });
+
+            if (response.ok) {
+                message.textContent = 'RSVP saved successfully!';
+                message.style.color = 'green';
+                form.reset();
+            } else {
+                throw new Error('Failed to save RSVP.');
+            }
+        } catch (error) {
+            message.textContent = error.message;
+            message.style.color = 'red';
+        }
+    });
+});

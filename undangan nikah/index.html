@@ -61,6 +61,25 @@
         </div>
     </section>
 
+    <section class="section-4">
+        <div class="rsvp-container">
+            <h2>RSVP</h2>
+            <form id="rsvp-form">
+                <label for="name">Nama Anda:</label>
+                <input type="text" id="name" name="name" required placeholder="Masukkan nama Anda">
+
+                <label for="guests">Jumlah yang Hadir:</label>
+                <select id="guests" name="guests" required>
+                    <option value="1">1 Person</option>
+                    <option value="2">2 People</option>
+                </select>
+
+                <button type="submit">Submit</button>
+            </form>
+            <p id="rsvp-message"></p>
+        </div>
+    </section>
+
     <script src="script.js"></script>
 </body>
 </html>
