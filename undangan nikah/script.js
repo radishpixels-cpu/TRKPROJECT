@@ -1,42 +1,4 @@
-const sections = Array.from(document.querySelectorAll('section'));
-let currentSection = 0;
-let isAnimating = false;
-const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches
-    || navigator.maxTouchPoints > 0
-    || 'ontouchstart' in window;
 
-function goToSection(index) {
-    if (index < 0 || index >= sections.length || isAnimating) return;
-    currentSection = index;
-    isAnimating = true;
-    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
-    setTimeout(() => { isAnimating = false; }, 700);
-}
-
-if (!isTouchDevice) {
-    window.addEventListener('wheel', function (event) {
-        const direction = Math.sign(event.deltaY || event.wheelDelta);
-        if (direction === 0) return;
-
-        event.preventDefault();
-        if (direction > 0) {
-            goToSection(Math.min(currentSection + 1, sections.length - 1));
-        } else {
-            goToSection(Math.max(currentSection - 1, 0));
-        }
-    }, { passive: false });
-
-    window.addEventListener('keydown', function (event) {
-        if (event.key === 'ArrowDown' || event.key === 'PageDown' || event.key === ' ') {
-            event.preventDefault();
-            goToSection(Math.min(currentSection + 1, sections.length - 1));
-        }
-        if (event.key === 'ArrowUp' || event.key === 'PageUp') {
-            event.preventDefault();
-            goToSection(Math.max(currentSection - 1, 0));
-        }
-    });
-}
 
 // Set tanggal pernikahan di sini (Tahun, Bulan (0-11), Tanggal, Jam, Menit, Detik)
 const weddingDate = new Date(2067, 6, 7, 0, 0, 0).getTime();
@@ -85,41 +47,42 @@ const countdownTimer = setInterval(function() {
 }, 1000);
 
 document.addEventListener('DOMContentLoaded', () => {
+
     const form = document.getElementById('rsvp-form');
     const message = document.getElementById('rsvp-message');
 
     form.addEventListener('submit', async (e) => {
+
         e.preventDefault();
 
         const name = document.getElementById('name').value.trim();
         const guests = document.getElementById('guests').value;
 
         if (!name) {
-            message.textContent = 'Please enter your name.';
+            message.textContent = 'Masukkan nama.';
             message.style.color = 'red';
             return;
         }
 
-        const data = `${name},${guests}\n`;
-
         try {
-            const response = await fetch('save_rsvp.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `data=${encodeURIComponent(data)}`,
-            });
 
-            if (response.ok) {
-                message.textContent = 'RSVP saved successfully!';
-                message.style.color = 'green';
-                form.reset();
-            } else {
-                throw new Error('Failed to save RSVP.');
-            }
+             await fetch('https://script.google.com/macros/s/AKfycbxH-hIqobXNOOnFtH70LuyG2baH3oeSMn4qikZjW8lZlFnVeWTWyLc-75_QfxgtoWXI/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams({
+            name: name,
+            guests: guests
+        })
+    });
+
+    message.textContent = 'RSVP berhasil dikirim!';
+    message.style.color = 'green';
+    form.reset();
         } catch (error) {
-            message.textContent = error.message;
+
+            console.error(error);
+
+            message.textContent = 'Terjadi kesalahan.';
             message.style.color = 'red';
         }
     });
